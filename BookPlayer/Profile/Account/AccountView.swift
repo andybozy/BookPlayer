@@ -22,17 +22,21 @@ struct AccountView: View {
 
   var body: some View {
     Form {
-      if !accountService.account.hasSubscription {
+      if AppEnvironment.isSelfHosted {
+        ThemedSection { Text("self_hosted_title").bpFont(.body) }
+      } else if !accountService.account.hasSubscription {
         AccountPerksSectionView {
           showCompleteAccount = true
         }
       } else if !ProcessInfo.processInfo.isiOSAppOnMac {
         AccountManageProSectionView()
       }
-      AccountTermsConditionsSectionView()
-      AccountPasskeySectionView()
+      if !AppEnvironment.isSelfHosted {
+        AccountTermsConditionsSectionView()
+        AccountPasskeySectionView()
+      }
       AccountLogoutSectionView()
-      AccountDeleteSectionView(showAlert: $showDeleteAlert)
+      if !AppEnvironment.isSelfHosted { AccountDeleteSectionView(showAlert: $showDeleteAlert) }
     }
     .navigationTitle(accountService.account.email)
     .navigationBarTitleDisplayMode(.inline)

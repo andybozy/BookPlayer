@@ -2,6 +2,11 @@
 
 set -e
 
+# Personal builds do not send debug symbols to the upstream project.
+if [ "${BP_SELF_HOSTED:-NO}" = "YES" ] || [ -z "${SENTRY_AUTH_TOKEN:-}" ] || [ -z "${SENTRY_ORG:-}" ] || [ -z "${SENTRY_PROJECT:-}" ]; then
+    exit 0
+fi
+
 # This is necessary in order to have sentry-cli
 # install locally into the current directory
 export INSTALL_DIR=$PWD
@@ -13,7 +18,7 @@ fi
 
 echo "Uploading dSYM to Sentry"
 
-sentry-cli --auth-token $SENTRY_AUTH_TOKEN \
-    upload-dif --org 'tortuga-power' \
-    --project 'bookplayer' \
-    $CI_ARCHIVE_PATH
+sentry-cli --auth-token "$SENTRY_AUTH_TOKEN" \
+    upload-dif --org "$SENTRY_ORG" \
+    --project "$SENTRY_PROJECT" \
+    "$CI_ARCHIVE_PATH"

@@ -27,6 +27,7 @@ public typealias KeychainUpdateValue = (key: KeychainKeys, deleted: Bool)
 
 public enum KeychainKeys: String {
   /// Stores BookPlayer's API access token
+  case selfHostedAccount = "self_hosted_account"
   case token = "access_token"
   /// Stores the Jellyfin connection information (JellyfinConnectionData)
   case jellyfinConnection = "jellyfin_connection"

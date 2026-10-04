@@ -273,7 +273,8 @@ public final class SyncService: SyncServiceProtocol, BPLogger {
 
     let response = try await fetchContents(at: relativePath)
 
-    try await processContentsResponse(response, parentFolder: relativePath, canDelete: true)
+    let canDelete = !AppEnvironment.isSelfHosted || UserDefaults.standard.bool(forKey: Constants.UserDefaults.hasScheduledLibraryContents)
+    try await processContentsResponse(response, parentFolder: relativePath, canDelete: canDelete)
 
     UserDefaults.standard.set(
       Date().timeIntervalSince1970,
@@ -291,19 +292,27 @@ public final class SyncService: SyncServiceProtocol, BPLogger {
     await teardownTask?.value
 
     if await queuedJobsCount() > 0 {
+      if AppEnvironment.isSelfHosted { return }
       Self.logger.trace("Clearing orphaned tasks before initial library sync")
       await resetAllJobs()
     }
 
     Self.logger.trace("Fetching synced library identifiers")
 
-    let fetchedIdentifiers = try await fetchSyncedIdentifiers()
-
-    if let itemsToUpload = await libraryService.getItemsToSync(remoteIdentifiers: fetchedIdentifiers),
-      !itemsToUpload.isEmpty
-    {
-      Self.logger.trace("Scheduling upload tasks")
-      await handleItemsToUpload(itemsToUpload)
+    if AppEnvironment.isSelfHosted {
+      guard let local = await libraryService.getItemsToSync(remoteIdentifiers: []) else {
+        throw BookPlayerError.runtimeError("self_hosted_library_read_error".localized)
+      }
+      let status: SelfHostedLibraryStatus = try await client.request(path: "/v1/library/status", method: .post,
+        parameters: ["uuids": local.map(\.uuid)])
+      let needed = Set(status.unknown + status.unsynced)
+      await handleItemsToUpload(local.filter { needed.contains($0.uuid) })
+    } else {
+      let fetchedIdentifiers = try await fetchSyncedIdentifiers()
+      if let itemsToUpload = await libraryService.getItemsToSync(remoteIdentifiers: fetchedIdentifiers),
+        !itemsToUpload.isEmpty {
+        await handleItemsToUpload(itemsToUpload)
+      }
     }
 
     let response = try await fetchContents(at: nil)

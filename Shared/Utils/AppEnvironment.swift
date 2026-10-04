@@ -9,6 +9,16 @@
 import Foundation
 
 public enum AppEnvironment {
+  /// Explicit personal build setting, never enabled against BookPlayer's hosted service.
+  public static var isSelfHosted: Bool {
+    Bundle.main.object(forInfoDictionaryKey: "BP_SELF_HOSTED") as? String == "YES"
+  }
+
+  static func allowsPersonalEndpoint(scheme: String, host: String) -> Bool {
+    let host = host.lowercased().trimmingCharacters(in: CharacterSet(charactersIn: "."))
+    return scheme == "https" && !host.isEmpty && host != "bookplayer.app" && !host.hasSuffix(".bookplayer.app")
+  }
+
   /// Checks if the app is running in a TestFlight environment
   public static var isTestFlight: Bool {
     #if DEBUG
@@ -25,7 +35,7 @@ public enum AppEnvironment {
   
   /// Checks if in-app purchases should be enabled
   public static var isPurchaseEnabled: Bool {
-    return !isTestFlight
+    return !isSelfHosted && !isTestFlight
   }
   
   /// Returns the current environment description for debugging

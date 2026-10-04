@@ -356,6 +356,7 @@ struct DebugFileTransferable: Transferable {
   }
 
   private func getRevenueCatInformation() -> String {
+    if AppEnvironment.isSelfHosted { return "\nPersonal server (RevenueCat disabled)\n" }
     var info = "\n-- RevenueCat Info --\n"
 
     guard let customerInfo = Purchases.shared.cachedCustomerInfo else {

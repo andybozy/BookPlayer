@@ -11,6 +11,9 @@ import BookPlayerKit
 import SwiftUI
 
 struct LoginView: View {
+  @State private var username = ""
+  @State private var password = ""
+  @Environment(\.accountService) private var accountService
   @State private var loadingState = LoadingOverlayState()
   @State private var showCompleteAccount = false
   @State private var showPasskeyRegistration = false
@@ -36,7 +39,24 @@ struct LoginView: View {
           title: "benefits_themesicons_title",
           subtitle: "benefits_themesicons_description"
         )
-        LoginDisclaimerSectionView()
+        if AppEnvironment.isSelfHosted {
+          Section {
+            TextField("self_hosted_username".localized, text: $username)
+              .textContentType(.username)
+              .textInputAutocapitalization(.never)
+              .autocorrectionDisabled()
+              .accessibilityLabel("self_hosted_username".localized)
+            SecureField("self_hosted_password".localized, text: $password)
+              .textContentType(.password)
+              .accessibilityLabel("self_hosted_password".localized)
+          } header: {
+            Text("self_hosted_title".localized)
+          } footer: {
+            Text(verbatim: Bundle.main.configurationString(for: .apiDomain))
+          }
+        } else {
+          LoginDisclaimerSectionView()
+        }
       }
       .applyListStyle(with: theme, background: theme.systemGroupedBackgroundColor)
       .safeAreaInset(edge: .bottom) {
@@ -45,6 +65,16 @@ struct LoginView: View {
       }
 
       VStack(spacing: Spacing.S) {
+        if AppEnvironment.isSelfHosted {
+          Button("self_hosted_sign_in".localized) {
+            Task { await signInToPersonalServer() }
+          }
+          .bpFont(.body)
+          .buttonStyle(.borderedProminent)
+          .disabled(username.isEmpty || password.isEmpty || loadingState.show)
+          .accessibilityLabel("self_hosted_sign_in".localized)
+          .padding(.bottom, Spacing.S)
+        } else {
         AppleSignInLink { hasSubscription in
           handleSignInResult(hasSubscription: hasSubscription)
         }
@@ -54,11 +84,12 @@ struct LoginView: View {
           showPasskeyRegistration = true
         }
         .padding(.bottom, Spacing.S)
+        }
       }
     }
     .environment(\.loadingState, loadingState)
     .listSectionSpacing(Spacing.S2)
-    .navigationTitle("BookPlayer Pro")
+    .navigationTitle(AppEnvironment.isSelfHosted ? "self_hosted_title".localized : "BookPlayer Pro")
     .navigationBarTitleDisplayMode(.inline)
     .errorAlert(error: $loadingState.error)
     .loadingOverlay(loadingState.show)
@@ -86,6 +117,17 @@ struct LoginView: View {
         }
       }
     }
+  }
+
+  @MainActor
+  private func signInToPersonalServer() async {
+    loadingState.show = true
+    defer { loadingState.show = false }
+    do {
+      try await accountService.loginSelfHosted(username: username, password: password)
+      password = ""
+      dismiss()
+    } catch { loadingState.error = error }
   }
 
   private func handleSignInResult(hasSubscription: Bool) {

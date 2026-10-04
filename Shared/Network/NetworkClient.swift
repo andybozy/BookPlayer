@@ -142,7 +142,10 @@ public class NetworkClient: NetworkClientProtocol, BPLogger {
 
     Self.logger.trace("[Request] PUT \(remoteURL.path)")
 
-    _ = try await URLSession.shared.upload(for: request, from: data)
+    let (_, response) = try await URLSession.shared.upload(for: request, from: data)
+    guard let http = response as? HTTPURLResponse, (200..<300).contains(http.statusCode) else {
+      throw URLError(.badServerResponse)
+    }
   }
 
   public func uploadTask(
@@ -179,7 +182,7 @@ public class NetworkClient: NetworkClientProtocol, BPLogger {
     parameters: [String: Any]?
   ) async throws -> T {
 
-    Self.logger.trace("[Request] \(method.rawValue) \(request.url?.path)\nParameters: \(parameters?.description)")
+    Self.logger.trace("[Request] \(method.rawValue) \(request.url?.path ?? "")")
 
     let (data, response) = try await URLSession.shared.data(for: request)
 
@@ -229,7 +232,9 @@ public class NetworkClient: NetworkClientProtocol, BPLogger {
     request.httpMethod = method.rawValue
     request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 #if os(watchOS)
-    request.setValue("watch.bookplayer.app", forHTTPHeaderField: "origin")
+    if !AppEnvironment.isSelfHosted {
+      request.setValue("watch.bookplayer.app", forHTTPHeaderField: "origin")
+    }
     request.setValue("2022-12-12", forHTTPHeaderField: "accept-version")
 #endif
 
@@ -255,6 +260,9 @@ public class NetworkClient: NetworkClientProtocol, BPLogger {
     method: HTTPMethod,
     parameters: [String: Any]?
   ) throws -> URLRequest {
+    guard !AppEnvironment.isSelfHosted || AppEnvironment.allowsPersonalEndpoint(scheme: scheme, host: host) else {
+      throw URLError(.unsupportedURL)
+    }
     var components = URLComponents()
     components.scheme = scheme
     components.host = host

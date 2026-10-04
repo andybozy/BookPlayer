@@ -25,3 +25,5 @@ BP_MOCKED_BEARER_TOKEN = simulator.only
 BP_API_SCHEME = http
 BP_API_DOMAIN = replace.me
 BP_API_PORT =
+
+BP_SELF_HOSTED = NO

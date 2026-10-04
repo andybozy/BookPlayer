@@ -31,6 +31,8 @@
 		<string>$(BP_BUNDLE_IDENTIFIER).background.refresh</string>
 		<string>$(BP_BUNDLE_IDENTIFIER).background.database.backup</string>
 	</array>
+	<key>BP_SELF_HOSTED</key>
+	<string>$(BP_SELF_HOSTED)</string>
 	<key>BP_API_DOMAIN</key>
 	<string>$(BP_API_DOMAIN)</string>
 	<key>BP_API_PORT</key>

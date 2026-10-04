@@ -506,3 +506,12 @@ We're working hard on providing a seamless experience, if possible, please conta
 "jellyfin_quick_connect_error_no_code" = "Your Jellyfin server didn't return a Quick Connect code. Make sure Quick Connect is enabled in the server's dashboard.";
 "jellyfin_quick_connect_error_generic" = "Quick Connect couldn't complete. Check that Quick Connect is enabled on your server and try again.";
 "jellyfin_quick_connect_error_timeout" = "Timed out waiting for the code to be entered. Please try again.";
+
+// Personal server
+"self_hosted_title" = "Personal server";
+"self_hosted_username" = "Username";
+"self_hosted_password" = "Password";
+"self_hosted_sign_in" = "Sign in";
+"self_hosted_control_phone" = "Control iPhone";
+"self_hosted_file_size_error" = "Files must be between 1 byte and 10 GiB for cloud sync.";
+"self_hosted_library_read_error" = "Unable to read the local library.";

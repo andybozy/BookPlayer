@@ -13,10 +13,11 @@ struct RootView: View {
   @ObservedObject var coreServices: CoreServices
   @ObservedObject var contextManager = ExtensionDelegate.contextManager
   @State var showSettings = false
+  @AppStorage("selfHostedPhoneControl", store: UserDefaults.sharedDefaults) private var phoneControl = false
 
   var body: some View {
     VStack {
-      if coreServices.hasSyncEnabled {
+      if coreServices.hasSyncEnabled && !(AppEnvironment.isSelfHosted && phoneControl) {
         RemoteItemListView(model: .init(coreServices: coreServices))
       } else if contextManager.items.isEmpty && contextManager.isConnecting {
         ProgressView()

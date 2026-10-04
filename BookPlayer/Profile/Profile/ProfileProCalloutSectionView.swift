@@ -16,7 +16,7 @@ struct ProfileProCalloutSectionView: View {
 
   var body: some View {
     VStack {
-      Text("BookPlayer Pro")
+      Text(AppEnvironment.isSelfHosted ? "self_hosted_title".localized : "BookPlayer Pro")
         .bpFont(.title)
         .accessibilityHidden(true)
       Button(action: action) {
@@ -29,7 +29,7 @@ struct ProfileProCalloutSectionView: View {
           .clipShape(Capsule())
       }
       .buttonStyle(.plain)
-      .accessibilityLabel("BookPlayer Pro. \("learn_more_title".localized)")
+      .accessibilityLabel(AppEnvironment.isSelfHosted ? "self_hosted_sign_in".localized : "BookPlayer Pro. \("learn_more_title".localized)")
     }
   }
 }

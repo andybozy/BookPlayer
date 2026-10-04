@@ -36,6 +36,7 @@ class ExtensionDelegate: NSObject, WKApplicationDelegate, ObservableObject {
   }
 
   func setupRevenueCat() {
+    guard !AppEnvironment.isSelfHosted else { return }
     let revenueCatApiKey: String = Bundle.main.configurationValue(
       for: .revenueCat
     )
@@ -68,6 +69,9 @@ class ExtensionDelegate: NSObject, WKApplicationDelegate, ObservableObject {
       MigrationPlan.injectedCoreDataContext = stack.backgroundContext
       let accountService = AccountService()
       accountService.setup(dataManager: dataManager)
+      if AppEnvironment.isSelfHosted {
+        Task { @MainActor in try? await accountService.refreshSelfHostedSession() }
+      }
       let audioMetadataService = AudioMetadataService()
       let libraryService = LibraryService()
       libraryService.setup(dataManager: dataManager, audioMetadataService: audioMetadataService)

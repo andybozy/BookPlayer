@@ -41,7 +41,7 @@ struct SettingsView: View {
         SettingsAppearanceSectionView()
         SettingsPlaybackSectionView()
         SettingsStorageSectionView(accessLevel: accountService.accessLevel)
-        if accountService.accessLevel == .pro {
+        if accountService.hasSyncEnabled() {
           SettingsDataUsageSectionView()
         }
         SettingsShortcutsSectionView()
@@ -178,10 +178,13 @@ struct SettingsView: View {
       return "p"
     case .pro:
       return "c"
+    case .selfHosted:
+      return "s"
     }
   }
 
   private var attachmentData: AttachmentData? {
+    guard !AppEnvironment.isSelfHosted else { return nil }
     guard let cachedCustomerInfo = Purchases.shared.cachedCustomerInfo else {
       return nil
     }
@@ -201,14 +204,14 @@ struct SettingsView: View {
   }
 
   private var debugInfoDescription: String {
-    let cachedCustomerInfo = Purchases.shared.cachedCustomerInfo?.id ?? ""
+    let cachedCustomerInfo = AppEnvironment.isSelfHosted ? "selfHosted" : (Purchases.shared.cachedCustomerInfo?.id ?? "")
     let debugInfo =
       "BookPlayer \(appVersion)\(versionSuffix)\n\(Device.current)\(systemVersion)\n\n\(cachedCustomerInfo)"
     return "settings_support_compose_description".localized + " \(supportEmail).\n\n\(debugInfo)"
   }
 
   private var debugInfo: String {
-    let cachedCustomerInfo = Purchases.shared.cachedCustomerInfo?.id ?? ""
+    let cachedCustomerInfo = AppEnvironment.isSelfHosted ? "selfHosted" : (Purchases.shared.cachedCustomerInfo?.id ?? "")
     let debugInfo =
       "BookPlayer \(appVersion)\(versionSuffix)\n\(Device.current)\(systemVersion)\n\n\(cachedCustomerInfo)"
     return "\(supportEmail)\n\n\(debugInfo)"

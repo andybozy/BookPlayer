@@ -602,7 +602,9 @@
 		63C6C30D2B538D8500FFE0D8 /* SyncTasksStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C6C30B2B538B7A00FFE0D8 /* SyncTasksStorage.swift */; };
 		63C6C30E2B538D8600FFE0D8 /* SyncTasksStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C6C30B2B538B7A00FFE0D8 /* SyncTasksStorage.swift */; };
 		63C6C3112B54F16800FFE0D8 /* LibraryItemSyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C6C30F2B54F14800FFE0D8 /* LibraryItemSyncOperation.swift */; };
+		BA0040010000000000000002 /* SelfHostedMultipartUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0040010000000000000001 /* SelfHostedMultipartUploader.swift */; };
 		63C6C3122B54F16800FFE0D8 /* LibraryItemSyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C6C30F2B54F14800FFE0D8 /* LibraryItemSyncOperation.swift */; };
+		BA0040010000000000000003 /* SelfHostedMultipartUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0040010000000000000001 /* SelfHostedMultipartUploader.swift */; };
 		63C6C3192B5E102200FFE0D8 /* SyncTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C6C3172B5E0FE700FFE0D8 /* SyncTask.swift */; };
 		63C6C31A2B5E102200FFE0D8 /* SyncTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C6C3172B5E0FE700FFE0D8 /* SyncTask.swift */; };
 		63CD851D2CE2964900EDBEA8 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CD851C2CE2964900EDBEA8 /* SettingsView.swift */; };
@@ -1607,6 +1609,7 @@
 		63C6C2E72B5029FE00FFE0D8 /* SettingsAutolockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAutolockViewModel.swift; sourceTree = "<group>"; };
 		63C6C30B2B538B7A00FFE0D8 /* SyncTasksStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncTasksStorage.swift; sourceTree = "<group>"; };
 		63C6C30F2B54F14800FFE0D8 /* LibraryItemSyncOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryItemSyncOperation.swift; sourceTree = "<group>"; };
+		BA0040010000000000000001 /* SelfHostedMultipartUploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfHostedMultipartUploader.swift; sourceTree = "<group>"; };
 		63C6C3172B5E0FE700FFE0D8 /* SyncTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncTask.swift; sourceTree = "<group>"; };
 		63CD851C2CE2964900EDBEA8 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		63CD85222CE302D200EDBEA8 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -3612,6 +3615,7 @@
 				9FDDD2DD289BEE590020C428 /* SyncJobScheduler.swift */,
 				63C6C30B2B538B7A00FFE0D8 /* SyncTasksStorage.swift */,
 				63C6C30F2B54F14800FFE0D8 /* LibraryItemSyncOperation.swift */,
+				BA0040010000000000000001 /* SelfHostedMultipartUploader.swift */,
 				638E64CD2B8E1CFD00DCFA3B /* SyncTasksCountService.swift */,
 			);
 			path = Sync;
@@ -4505,6 +4509,7 @@
 				9FBDBC7E287940D900D315A2 /* ContentsResponse.swift in Sources */,
 				4140EA7C227289C70009F794 /* LibraryItem+CoreDataClass.swift in Sources */,
 				63C6C3122B54F16800FFE0D8 /* LibraryItemSyncOperation.swift in Sources */,
+				BA0040010000000000000003 /* SelfHostedMultipartUploader.swift in Sources */,
 				638352CE2E67F327009EE79E /* TasksDataManager.swift in Sources */,
 				638352D02E67F327009EE79E /* SyncTasksModels.swift in Sources */,
 				638352D12E67F327009EE79E /* SwiftDataModels+Extensions.swift in Sources */,
@@ -5088,6 +5093,7 @@
 				6357F1192A8BA084007947FC /* BPURLSession.swift in Sources */,
 				9F49072C2903663800054AD6 /* SortType.swift in Sources */,
 				63C6C3112B54F16800FFE0D8 /* LibraryItemSyncOperation.swift in Sources */,
+				BA0040010000000000000002 /* SelfHostedMultipartUploader.swift in Sources */,
 				9F1345B92938E0010089B1DE /* ImageIcons.swift in Sources */,
 				9FBDBC7D287940D900D315A2 /* ContentsResponse.swift in Sources */,
 				9F07B79829B770B7005A939D /* BPTaskUploadDelegate.swift in Sources */,
@@ -5487,7 +5493,7 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = BookPlayerWatch/BookPlayerWatch.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "BookPlayerWatch/$(BP_WATCH_ENTITLEMENTS).entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
@@ -5528,7 +5534,7 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = BookPlayerWatch/BookPlayerWatch.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "BookPlayerWatch/$(BP_WATCH_ENTITLEMENTS).entitlements";
 				CODE_SIGN_IDENTITY = "Apple Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
@@ -5566,7 +5572,7 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = BookPlayerWatch/BookPlayerWatch.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "BookPlayerWatch/$(BP_WATCH_ENTITLEMENTS).entitlements";
 				CODE_SIGN_IDENTITY = "Apple Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
@@ -5834,6 +5840,7 @@
 		418B6D151D2707F800F974FB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BP_WATCH_ENTITLEMENTS = BookPlayerWatch;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -5897,6 +5904,7 @@
 		418B6D161D2707F800F974FB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BP_WATCH_ENTITLEMENTS = BookPlayerWatch;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -6445,6 +6453,7 @@
 		C30C6B8820C68EDD0085218A /* Beta */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BP_WATCH_ENTITLEMENTS = BookPlayerWatch;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;

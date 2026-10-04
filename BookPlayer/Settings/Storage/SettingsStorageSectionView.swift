@@ -19,7 +19,7 @@ struct SettingsStorageSectionView: View {
         Text("settings_storage_description")
           .bpFont(.body)
       }
-      if accessLevel == .pro {
+      if accessLevel == .pro || accessLevel == .selfHosted {
         NavigationLink(value: SettingsScreen.syncbackup) {
           Text("settings_storage_sync_deleted_description")
             .bpFont(.body)

@@ -23,7 +23,7 @@ struct SettingsProBannerSectionView: View {
           .opacity(0.5)
 
         VStack(alignment: .leading, spacing: 0) {
-          Text("BookPlayer Pro")
+          Text(AppEnvironment.isSelfHosted ? "self_hosted_title".localized : "BookPlayer Pro")
             .bpFont(.title)
             .padding(.bottom, Spacing.S5)
           Text("support_bookplayer_description")

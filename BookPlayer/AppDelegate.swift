@@ -294,6 +294,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BPLogger {
   // MARK: - Third-party SDKs
 
   func setupRevenueCat() {
+    guard !AppEnvironment.isSelfHosted else { return }
     let revenueCatApiKey: String = Bundle.main.configurationValue(
       for: .revenueCat
     )
@@ -303,6 +304,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BPLogger {
 
   /// Setup observer for user preference, and setup Sentry based on initial value
   func setupSentry() {
+    guard !AppEnvironment.isSelfHosted else { return }
     let userDefaults = UserDefaults.standard
     crashReportsAccessObserver = userDefaults.observe(
       \.userSettingsCrashReportsDisabled

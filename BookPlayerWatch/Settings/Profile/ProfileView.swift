@@ -14,6 +14,7 @@ struct ProfileView: View {
   @Binding var account: Account?
   @State private var totalSpaceUsed: String = ""
   @State private var isLoading = false
+  @AppStorage("selfHostedPhoneControl", store: UserDefaults.sharedDefaults) private var phoneControl = false
   @State private var error: Error?
 
   init(account: Binding<Account?>) {
@@ -59,6 +60,10 @@ struct ProfileView: View {
 
   var body: some View {
     List {
+      if AppEnvironment.isSelfHosted {
+        Toggle("self_hosted_control_phone".localized, isOn: $phoneControl)
+          .accessibilityLabel("self_hosted_control_phone".localized)
+      }
       Section {
         if !coreServices.hasSyncEnabled {
           Text("subscription_required_title".localized)

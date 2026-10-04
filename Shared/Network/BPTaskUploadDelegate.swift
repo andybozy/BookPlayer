@@ -26,6 +26,12 @@ class BPTaskUploadDelegate: NSObject, URLSessionTaskDelegate {
   }
 
   func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
+    if error == nil {
+      guard let http = task.response as? HTTPURLResponse, (200..<300).contains(http.statusCode) else {
+        didFinishTask?(task, URLError(.badServerResponse))
+        return
+      }
+    }
     didFinishTask?(task, error)
   }
 }

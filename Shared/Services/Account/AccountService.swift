@@ -28,7 +28,7 @@ public enum SecondOnboardingError: Error {
 }
 
 public enum AccessLevel: String, CaseIterable, Identifiable {
-  case free, plus, pro
+  case free, plus, pro, selfHosted
 
   public var id: String { rawValue }
 }
@@ -93,6 +93,7 @@ public protocol AccountServiceProtocol {
   func handlePasskeyLogin(response: PasskeyLoginResponse) async throws
 
   /// Handle credentials transferred from iPhone to Watch
+  @MainActor
   func loginWithTransferredCredentials(
     token: String,
     accountId: String,
@@ -137,6 +138,7 @@ public final class AccountService: AccountServiceProtocol {
   }
 
   public func setDelegate(_ delegate: PurchasesDelegate) {
+    guard !AppEnvironment.isSelfHosted else { return }
     Purchases.shared.delegate = delegate
   }
 
@@ -151,6 +153,7 @@ public final class AccountService: AccountServiceProtocol {
   }
 
   public func getAnonymousId() -> String? {
+    if AppEnvironment.isSelfHosted { return nil }
     return Purchases.shared.cachedCustomerInfo?.id
   }
 
@@ -175,10 +178,17 @@ public final class AccountService: AccountServiceProtocol {
   }
 
   public func hasSyncEnabled() -> Bool {
+    if AppEnvironment.isSelfHosted {
+      let session: SelfHostedSession? = try? keychain.get(.selfHostedAccount)
+      let token: String? = try? keychain.get(.token)
+      return session?.selfHosted == true && session?.accountId == getAccountId()
+        && session?.server == Bundle.main.configurationString(for: .apiDomain) && token != nil
+    }
     return Purchases.shared.cachedCustomerInfo?.entitlements.all["pro"]?.isActive == true
   }
 
   public func hasPlusAccess() -> Bool {
+    if AppEnvironment.isSelfHosted { return hasSyncEnabled() }
     guard let cachedInfo = Purchases.shared.cachedCustomerInfo else {
       return getAccount()?.donationMade == true
     }
@@ -203,7 +213,7 @@ public final class AccountService: AccountServiceProtocol {
 
   private func getAccessLevel() -> AccessLevel {
     if hasSyncEnabled() {
-      return .pro
+      return AppEnvironment.isSelfHosted ? .selfHosted : .pro
     } else if hasPlusAccess() {
       return .plus
     } else {
@@ -238,6 +248,7 @@ public final class AccountService: AccountServiceProtocol {
   }
 
   public func updateAccount(from customerInfo: CustomerInfo) {
+    guard !AppEnvironment.isSelfHosted else { return }
     self.updateAccount(
       hasSubscription: !customerInfo.activeSubscriptions.isEmpty
     )
@@ -292,6 +303,7 @@ public final class AccountService: AccountServiceProtocol {
   }
 
   public func getSubscriptionOptions() async throws -> [PricingModel] {
+    if AppEnvironment.isSelfHosted { return [] }
     let products = await Purchases.shared.products([yearlySubscriptionId, monthlySubscriptionId])
 
     var options = [PricingModel]()
@@ -356,6 +368,7 @@ public final class AccountService: AccountServiceProtocol {
   }
 
   public func loginTestAccount(token: String) async throws {
+    guard !AppEnvironment.isSelfHosted else { throw AccountError.missingToken }
     let userId = "001918.a2d23624056d45618b7c2699d98c535e.2333"
     self.updateAccount(
       id: userId,
@@ -374,6 +387,7 @@ public final class AccountService: AccountServiceProtocol {
     with token: String,
     userId: String
   ) async throws -> Account? {
+    guard !AppEnvironment.isSelfHosted else { throw AccountError.missingToken }
     let response: LoginResponse = try await provider.request(.login(token: token))
 
     try self.keychain.set(response.token, key: .token)
@@ -402,6 +416,7 @@ public final class AccountService: AccountServiceProtocol {
   }
 
   public func handlePasskeyLogin(response: PasskeyLoginResponse) async throws {
+    guard !AppEnvironment.isSelfHosted else { throw AccountError.missingToken }
     // Store the token
     try self.keychain.set(response.token, key: .token)
 
@@ -420,6 +435,7 @@ public final class AccountService: AccountServiceProtocol {
     )
   }
 
+  @MainActor
   public func loginWithTransferredCredentials(
     token: String,
     accountId: String,
@@ -429,6 +445,10 @@ public final class AccountService: AccountServiceProtocol {
   ) async throws -> Account? {
     // Store the token
     try self.keychain.set(token, key: .token)
+    if AppEnvironment.isSelfHosted {
+      try await refreshSelfHostedSession()
+      return getAccount()
+    }
     // Log in to RevenueCat
     let (customerInfo, _) = try await Purchases.shared.logIn(accountId)
     UserDefaults.sharedDefaults.set(accountId, forKey: "rcUserId")
@@ -445,6 +465,10 @@ public final class AccountService: AccountServiceProtocol {
   }
 
   public func loginIfUserExists(delegate: PurchasesDelegate) {
+    if AppEnvironment.isSelfHosted {
+      Task { @MainActor [weak self] in try? await self?.refreshSelfHostedSession() }
+      return
+    }
     guard let account = self.getAccount(), !account.id.isEmpty else {
       Purchases.shared.delegate = delegate
       return
@@ -470,7 +494,11 @@ public final class AccountService: AccountServiceProtocol {
       hasSubscription: false
     )
 
-    Purchases.shared.logOut { _, _ in }
+    if AppEnvironment.isSelfHosted {
+      try keychain.remove(.selfHostedAccount)
+    } else {
+      Purchases.shared.logOut { _, _ in }
+    }
     UserDefaults.sharedDefaults.removeObject(forKey: "rcUserId")
 
     NotificationCenter.default.post(name: .logout, object: self)
@@ -485,6 +513,7 @@ public final class AccountService: AccountServiceProtocol {
   }
 
   public func getSecondOnboarding<T: Decodable>() async throws -> T {
+    guard !AppEnvironment.isSelfHosted else { throw SecondOnboardingError.notApplicable }
     guard
       let customerInfo = Purchases.shared.cachedCustomerInfo,
       let countryCode = await Storefront.currentStorefront?.countryCode
@@ -516,5 +545,53 @@ public final class AccountService: AccountServiceProtocol {
         version: Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0"
       )
     )
+  }
+}
+
+/// Separate capability from a paid subscription. Accepted only from the configured personal backend.
+public struct SelfHostedSession: Codable {
+  public let token: String
+  public let accountId: String
+  public let email: String
+  public let selfHosted: Bool
+  public let server: String?
+}
+
+extension AccountService {
+  @MainActor
+  public func loginSelfHosted(username: String, password: String) async throws {
+    guard AppEnvironment.isSelfHosted else { throw AccountError.missingToken }
+    let response: SelfHostedSession = try await client.request(
+      path: "/v1/user/login", method: .post,
+      parameters: ["username": username, "password": password]
+    )
+    try acceptSelfHostedSession(response)
+  }
+
+  @MainActor
+  public func refreshSelfHostedSession() async throws {
+    guard AppEnvironment.isSelfHosted else { return }
+    let token: String? = try keychain.get(.token)
+    guard token != nil else { return }
+    do {
+      let response: SelfHostedSession = try await client.request(path: "/v1/user/session", method: .get, parameters: nil)
+      try acceptSelfHostedSession(response)
+    } catch BookPlayerError.networkErrorWithCode(_, let code) where code == "self_hosted_session_expired" {
+      try logout()
+      throw AccountError.missingToken
+    }
+    // Connectivity errors intentionally preserve the cached capability and offline playback.
+  }
+
+  @MainActor
+  private func acceptSelfHostedSession(_ response: SelfHostedSession) throws {
+    guard response.selfHosted, !response.token.isEmpty, !response.accountId.isEmpty else {
+      throw AccountError.missingToken
+    }
+    try keychain.set(response.token, key: .token)
+    let cached = SelfHostedSession(token: response.token, accountId: response.accountId,
+      email: response.email, selfHosted: true, server: Bundle.main.configurationString(for: .apiDomain))
+    try keychain.set(cached, key: .selfHostedAccount)
+    updateAccount(id: response.accountId, email: response.email, hasSubscription: true)
   }
 }

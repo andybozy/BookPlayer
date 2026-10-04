@@ -62,6 +62,8 @@ class LibraryItemSyncOperation: Operation, BPLogger {
   
   private var progressSubscriber: AnyCancellable?
   private var completionSubscriber: AnyCancellable?
+  private var operationTask: Task<Void, Never>?
+  private var multipartUploader: SelfHostedMultipartUploader?
 
   /// Initializer
   /// - Parameters:
@@ -92,7 +94,7 @@ class LibraryItemSyncOperation: Operation, BPLogger {
 
   // TODO: split into separate Operations
   override func main() {
-    Task {
+    operationTask = Task {
       do {
         switch jobType {
         case .upload:
@@ -150,8 +152,15 @@ class LibraryItemSyncOperation: Operation, BPLogger {
   }
 
   func finish() {
+    guard !isFinished else { return }
     isExecuting = false
     isFinished = true
+  }
+
+  override func cancel() {
+    super.cancel()
+    operationTask?.cancel()
+    multipartUploader?.cancel()
   }
 }
 
@@ -159,7 +168,37 @@ class LibraryItemSyncOperation: Operation, BPLogger {
 
 extension LibraryItemSyncOperation {
   func handleUploadJob(type: SimpleItemType) async throws {
-    let response: UploadItemResponse = try await provider.request(.upload(params: parameters))
+    let response: UploadItemResponse
+    if AppEnvironment.isSelfHosted {
+      let status: SelfHostedLibraryStatus = try await client.request(path: "/v1/library/status", method: .post,
+        parameters: ["uuids": [uuid]])
+      if !status.unknown.contains(uuid) {
+        // Never PUT an existing UUID at a stale path, or resurrect a remote deletion.
+        guard status.unsynced.contains(uuid), type == .book else { finishPersonalUpload(); return }
+        response = UploadItemResponse(content: UploadItemContent(url: nil, uuid: uuid))
+      } else {
+        response = try await provider.request(.upload(params: parameters))
+      }
+    } else {
+      response = try await provider.request(.upload(params: parameters))
+    }
+    let uploadUuid = response.content.uuid ?? uuid
+    if AppEnvironment.isSelfHosted, uploadUuid != uuid {
+      // A duplicate path may already belong to a canonical server UUID.
+      results = .matchUuid(MatchUuidsResponse(applied: [], conflicts: [ItemConflict(key: uuid, uuid: uploadUuid)]))
+    }
+
+    if AppEnvironment.isSelfHosted && type == .book {
+      let link = FileManager.default.temporaryDirectory.appendingPathComponent(relativePath)
+      let file = FileManager.default.fileExists(atPath: link.path)
+        ? link : DataManager.getProcessedFolderURL().appendingPathComponent(relativePath)
+      guard FileManager.default.fileExists(atPath: file.path) else { finish(); return }
+      let uploader = SelfHostedMultipartUploader(client: client, uuid: uploadUuid, relativePath: relativePath)
+      multipartUploader = uploader
+      try await uploader.upload(file: file)
+      finishPersonalUpload()
+      return
+    }
 
     guard let remoteURL = response.content.url else {
       /// The file is already present in the storage
@@ -201,6 +240,12 @@ extension LibraryItemSyncOperation {
       remoteURL: remoteURL,
       relativePath: self.relativePath
     )
+  }
+
+  private func finishPersonalUpload() {
+    NotificationCenter.default.post(name: .uploadCompleted, object: nil,
+      userInfo: ["relativePath": relativePath, "uuid": uuid])
+    finish()
   }
 
   /// Upload file on a background thread
@@ -261,6 +306,7 @@ extension LibraryItemSyncOperation {
 
     completionSubscriber?.cancel()
     completionSubscriber = BPURLSession.shared.completionPublisher.sink(receiveValue: { [weak self] (task, error) in
+      guard task.taskDescription == self?.relativePath else { return }
       self?.cellularDataObserver?.invalidate()
       if let nserror = error as? NSError,
          nserror.domain == NSURLErrorDomain,

@@ -293,7 +293,7 @@ lines). It is the highest-risk file in the app.
   notifications. A `teardownTask` is **awaited** at the top of the sync-contents entry points so a fast
   logout→login can't let a late `resetAllJobs()` wipe freshly-scheduled jobs — preserve this ordering. Every
   `schedule*` method short-circuits on `guard isActive`.
-- **Sync = the `pro` entitlement only** (see below). Job types (`SyncJobType`): `upload, update, move,
+- **Sync = the `pro` entitlement, or the authenticated personal-server capability in explicit `BP_SELF_HOSTED=YES` builds** (see below). Job types (`SyncJobType`): `upload, update, move,
   renameFolder, delete, shallowDelete, setBookmark, deleteBookmark, uploadArtwork, matchUuid`.
 - **Download verification:** `verifyDownloadedFile` rejects truncated files by comparing `AVURLAsset` duration to
   the stored duration (tolerance `max(2, expected*0.02)`); completion is broadcast only after verification.
@@ -471,3 +471,23 @@ The crash surfaces and invariants most likely to be broken by a change. (The ful
 12. **`BookPlayerKit` boundary:** `Shared/` importing app-layer types.
 13. **Integration session-expiry / token contracts** (see the integrations section).
 14. Hand-editing `Generated/AutoMockable.generated.swift`; adding code to a top-level **empty stub** folder.
+
+
+## Personal cloud variant (2026-10-04)
+
+The `selfhosted-cloud` branch preserves the original UI/player/Media Servers integrations. `BP_SELF_HOSTED=YES`
+selects local username/password login against the configured HTTPS API, `AccessLevel.selfHosted`, and disables
+RevenueCat and Sentry initialization. This is not an upstream subscription. `AccountService` remains the capability
+and sync gate; backend-issued identity/capability is cached in Keychain bound to account and domain, and the server
+checks active account + credential version on every protected request. Watch validates the transferred token with
+the same backend. Cached capability supports offline playback; server-confirmed revocation triggers normal logout.
+
+`SelfHostedMultipartUploader.swift` is in BOTH shared framework source phases. Personal books use 8 MiB background
+parts, persist upload ID/size/date per account, consult server parts for resume, and rely on server completion.
+`BPTaskUploadDelegate` and artwork uploads reject non-2xx HTTP responses. Completion observers filter the exact
+upload task identity. Personal first-sync uses UUID `/status`; uploads avoid PUTting known UUIDs at stale paths.
+No CoreData or SwiftData schema changes. Server configuration and manual Apple validation are in `SELFHOSTED.md`.
+
+The `SelfHosted.template.xcconfig` is an explicit override; it never overwrites private Debug/Release settings.
+Personal entitlements omit Apple login and CarPlay; signing/team/App Groups/iCloud remain a later Apple build step.
+The Watch profile's phone-control toggle selects the existing phone controls or existing autonomous library.

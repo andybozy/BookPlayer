@@ -1,0 +1,13 @@
+// Use via xcodebuild -xcconfig, or include LAST in your private Debug/Release.xcconfig.
+// Preserve your existing private signing files. Set DEVELOPMENT_TEAM locally when building on macOS.
+BP_SELF_HOSTED = YES
+BP_API_SCHEME = https
+BP_API_DOMAIN = bookplayer.androshera.xyz
+BP_API_PORT =
+BP_BUNDLE_IDENTIFIER = xyz.androshera.BookPlayer
+BP_ENTITLEMENTS = BookPlayer-SelfHosted
+BP_WATCH_ENTITLEMENTS = BookPlayerWatch-SelfHosted
+BP_MOCKED_BEARER_TOKEN =
+BP_REVENUECAT_KEY =
+BP_SENTRY_DSN =
+CODE_SIGN_STYLE = Automatic

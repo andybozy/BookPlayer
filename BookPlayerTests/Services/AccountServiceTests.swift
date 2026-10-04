@@ -88,3 +88,30 @@ class AccountServiceTests: XCTestCase {
     XCTAssert(try keychainMock.get(.token) == nil)
   }
 }
+
+
+final class PersonalCloudContractTests: XCTestCase {
+  func testPersonalEndpointRejectsPlaintextAndOfficialService() {
+    XCTAssertFalse(AppEnvironment.allowsPersonalEndpoint(scheme: "http", host: "personal.example"))
+    XCTAssertFalse(AppEnvironment.allowsPersonalEndpoint(scheme: "https", host: "api.bookplayer.app"))
+    XCTAssertFalse(AppEnvironment.allowsPersonalEndpoint(scheme: "https", host: "BOOKPLAYER.APP"))
+    XCTAssertTrue(AppEnvironment.allowsPersonalEndpoint(scheme: "https", host: "bookplayer.androshera.xyz"))
+  }
+
+  func testMultipartBoundariesAndOversizedInput() throws {
+    let part = Int64(SelfHostedMultipartUploader.partSize)
+    XCTAssertEqual(try SelfHostedMultipartUploader.partCount(for: part), 1)
+    XCTAssertEqual(try SelfHostedMultipartUploader.partCount(for: part + 1), 2)
+    XCTAssertEqual(try SelfHostedMultipartUploader.partCount(for: 128 * 1024 * 1024 + 12345), 17)
+    XCTAssertThrowsError(try SelfHostedMultipartUploader.partCount(for: 0))
+    XCTAssertThrowsError(try SelfHostedMultipartUploader.partCount(for: 10 * 1024 * 1024 * 1024 + 1))
+    XCTAssertLessThan(SelfHostedMultipartUploader.partSize, 100_000_000)
+  }
+
+  func testServerCapabilityIsSeparateFromSubscriptionResponse() throws {
+    let body = Data(#"{"token":"fixture","accountId":"id","email":"user","selfHosted":true}"#.utf8)
+    let session = try JSONDecoder().decode(SelfHostedSession.self, from: body)
+    XCTAssertTrue(session.selfHosted)
+    XCTAssertNil(session.server) // The client binds its persisted capability to the configured host.
+  }
+}
