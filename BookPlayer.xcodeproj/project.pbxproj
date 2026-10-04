@@ -907,25 +907,6 @@
 		FEEDBABE0000000000000003 /* SharedWidgetStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEEDBABE0000000000000001 /* SharedWidgetStore.swift */; };
 		FEEDBABE0000000000000005 /* SharedWidgetStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEEDBABE0000000000000004 /* SharedWidgetStoreTests.swift */; };
 		FF95F8C692908D744A32D761 /* PreferencesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E6918C51C370C2E89B24F9 /* PreferencesAPI.swift */; };
-		96E9395EC2C68693E3B2A04C /* ABSClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D223E7E62F6FB95256453FDC /* ABSClient.swift */; };
-		7C5339959F006E08106CC4D8 /* ABSClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D223E7E62F6FB95256453FDC /* ABSClient.swift */; };
-		F8549BA0AD0D76FE185CE733 /* ABSDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90EA9255EA5740308944735 /* ABSDownloader.swift */; };
-		1EED6ABBF5003F035774E854 /* ABSDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90EA9255EA5740308944735 /* ABSDownloader.swift */; };
-		1002783B114F103EFB629A89 /* ABSLocalStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027F180DF7EFF37B9EBD5F6E /* ABSLocalStore.swift */; };
-		B6FF527255FCCACBBE519A11 /* ABSLocalStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027F180DF7EFF37B9EBD5F6E /* ABSLocalStore.swift */; };
-		1CC47A9943B595FC34E5E89E /* ABSModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13E9C12248B9A2192AC3EF6B /* ABSModels.swift */; };
-		5CCA73703078D8C325582FAE /* ABSModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13E9C12248B9A2192AC3EF6B /* ABSModels.swift */; };
-		736DFE19E8E233DD70A50DC0 /* ABSPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B372C1833FF5E3204D2E2322 /* ABSPlayer.swift */; };
-		D306755B4213FB012F0F688A /* ABSPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B372C1833FF5E3204D2E2322 /* ABSPlayer.swift */; };
-		1D196ADD60812E88A5F32AF2 /* ABSStreamLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81640234E243841B4993682 /* ABSStreamLoader.swift */; };
-		A7A44F79C3EF5A461DC62D84 /* ABSStreamLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81640234E243841B4993682 /* ABSStreamLoader.swift */; };
-		64208CC9FC98550F4BD4A5CE /* ABSWatchBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCA6AE76BC5E25FBCAD1841 /* ABSWatchBridge.swift */; };
-		4D868A60164C8AA23C47D95D /* ABSWatchBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCA6AE76BC5E25FBCAD1841 /* ABSWatchBridge.swift */; };
-		C174B3F8BA037DE07609F97B /* SelfHostedRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6D866F2AD8CC63831E4E57 /* SelfHostedRootView.swift */; };
-		F21E185CBF99A8A187073519 /* SelfHostedRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6D866F2AD8CC63831E4E57 /* SelfHostedRootView.swift */; };
-		9E2EEF83DF7DC75986AC8029 /* SelfHostedStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2740D5A6C8E64547650A88 /* SelfHostedStore.swift */; };
-		FE93AA250EDA7EFDC608E48E /* SelfHostedStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2740D5A6C8E64547650A88 /* SelfHostedStore.swift */; };
-		7FA60A14B2517F215ADE24A9 /* SelfHostedABSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36FF29F9458C3D3EC9BAFBB /* SelfHostedABSTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1886,17 +1867,6 @@
 		F78387C7EDD9105363712F34 /* VideoFullscreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoFullscreenViewController.swift; sourceTree = "<group>"; };
 		FEEDBABE0000000000000001 /* SharedWidgetStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedWidgetStore.swift; sourceTree = "<group>"; };
 		FEEDBABE0000000000000004 /* SharedWidgetStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedWidgetStoreTests.swift; sourceTree = "<group>"; };
-		D223E7E62F6FB95256453FDC /* ABSClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ABSClient.swift; sourceTree = "<group>"; };
-		E90EA9255EA5740308944735 /* ABSDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ABSDownloader.swift; sourceTree = "<group>"; };
-		027F180DF7EFF37B9EBD5F6E /* ABSLocalStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ABSLocalStore.swift; sourceTree = "<group>"; };
-		13E9C12248B9A2192AC3EF6B /* ABSModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ABSModels.swift; sourceTree = "<group>"; };
-		B372C1833FF5E3204D2E2322 /* ABSPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ABSPlayer.swift; sourceTree = "<group>"; };
-		C81640234E243841B4993682 /* ABSStreamLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ABSStreamLoader.swift; sourceTree = "<group>"; };
-		1CCA6AE76BC5E25FBCAD1841 /* ABSWatchBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ABSWatchBridge.swift; sourceTree = "<group>"; };
-		CC6D866F2AD8CC63831E4E57 /* SelfHostedRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfHostedRootView.swift; sourceTree = "<group>"; };
-		BE2740D5A6C8E64547650A88 /* SelfHostedStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfHostedStore.swift; sourceTree = "<group>"; };
-		A36FF29F9458C3D3EC9BAFBB /* SelfHostedABSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfHostedABSTests.swift; sourceTree = "<group>"; };
-		4EDD917A4F90783F689FBED2 /* SelfHosted.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = SelfHosted.xcconfig; path = BuildConfiguration/SelfHosted.xcconfig; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2258,7 +2228,6 @@
 			isa = PBXGroup;
 			children = (
 				415A9975264CCD3F002BFD35 /* Debug.template.xcconfig */,
-				4EDD917A4F90783F689FBED2 /* SelfHosted.xcconfig */,
 				415A9976264CCD3F002BFD35 /* Debug.xcconfig */,
 				415A9977264CCD3F002BFD35 /* Release.xcconfig */,
 			);
@@ -2365,7 +2334,6 @@
 		418B6D111D2707F800F974FB /* BookPlayerTests */ = {
 			isa = PBXGroup;
 			children = (
-				A36FF29F9458C3D3EC9BAFBB /* SelfHostedABSTests.swift */,
 				63833DF62AAC127900496246 /* Unit Tests.xctestplan */,
 				63833DF72AAC12AB00496246 /* Performance Tests.xctestplan */,
 				62AAE22827492D6E001EB9FF /* Mocks */,
@@ -2399,7 +2367,6 @@
 		41A1B0F1226E9C5100EA0400 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				E8BFA2143A03B3E1A98BEFD6 /* SelfHosted */,
 				9F22DE3A288D771800056FCD /* Styleguide */,
 				9FC1E4572814E09700522FA8 /* Network */,
 				62AAE22F274AA6E9001EB9FF /* Services */,
@@ -3859,22 +3826,6 @@
 			path = ListLayout;
 			sourceTree = "<group>";
 		};
-		E8BFA2143A03B3E1A98BEFD6 /* SelfHosted */ = {
-			isa = PBXGroup;
-			children = (
-				D223E7E62F6FB95256453FDC /* ABSClient.swift */,
-				E90EA9255EA5740308944735 /* ABSDownloader.swift */,
-				027F180DF7EFF37B9EBD5F6E /* ABSLocalStore.swift */,
-				13E9C12248B9A2192AC3EF6B /* ABSModels.swift */,
-				B372C1833FF5E3204D2E2322 /* ABSPlayer.swift */,
-				C81640234E243841B4993682 /* ABSStreamLoader.swift */,
-				1CCA6AE76BC5E25FBCAD1841 /* ABSWatchBridge.swift */,
-				CC6D866F2AD8CC63831E4E57 /* SelfHostedRootView.swift */,
-				BE2740D5A6C8E64547650A88 /* SelfHostedStore.swift */,
-			);
-			path = SelfHosted;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -4484,15 +4435,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7C5339959F006E08106CC4D8 /* ABSClient.swift in Sources */,
-				1EED6ABBF5003F035774E854 /* ABSDownloader.swift in Sources */,
-				B6FF527255FCCACBBE519A11 /* ABSLocalStore.swift in Sources */,
-				5CCA73703078D8C325582FAE /* ABSModels.swift in Sources */,
-				D306755B4213FB012F0F688A /* ABSPlayer.swift in Sources */,
-				A7A44F79C3EF5A461DC62D84 /* ABSStreamLoader.swift in Sources */,
-				4D868A60164C8AA23C47D95D /* ABSWatchBridge.swift in Sources */,
-				F21E185CBF99A8A187073519 /* SelfHostedRootView.swift in Sources */,
-				FE93AA250EDA7EFDC608E48E /* SelfHostedStore.swift in Sources */,
 				9FC1E46D2815A8CA00522FA8 /* LibraryAPI.swift in Sources */,
 				99F3C20B2F62285800AC91A2 /* ApiResponse.swift in Sources */,
 				4140EA6C2272898F0009F794 /* DataManager.swift in Sources */,
@@ -5034,7 +4976,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7FA60A14B2517F215ADE24A9 /* SelfHostedABSTests.swift in Sources */,
 				9F1C30FC2A2E593300D5BC81 /* PlayableItemMock.swift in Sources */,
 				69343D36213A07B4000C425E /* VoiceOverServiceTest.swift in Sources */,
 				8AAA4F4C2CF1FF8C009D0777 /* MockCoordinatorPresentationFlow.swift in Sources */,
@@ -5083,15 +5024,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96E9395EC2C68693E3B2A04C /* ABSClient.swift in Sources */,
-				F8549BA0AD0D76FE185CE733 /* ABSDownloader.swift in Sources */,
-				1002783B114F103EFB629A89 /* ABSLocalStore.swift in Sources */,
-				1CC47A9943B595FC34E5E89E /* ABSModels.swift in Sources */,
-				736DFE19E8E233DD70A50DC0 /* ABSPlayer.swift in Sources */,
-				1D196ADD60812E88A5F32AF2 /* ABSStreamLoader.swift in Sources */,
-				64208CC9FC98550F4BD4A5CE /* ABSWatchBridge.swift in Sources */,
-				C174B3F8BA037DE07609F97B /* SelfHostedRootView.swift in Sources */,
-				9E2EEF83DF7DC75986AC8029 /* SelfHostedStore.swift in Sources */,
 				9FC1E46C2815A8CA00522FA8 /* LibraryAPI.swift in Sources */,
 				9FAFC9F42995BB5C00FD531E /* RemoteFileURLResponse.swift in Sources */,
 				4124AB2125DFE1A60007C839 /* CoreDataStack.swift in Sources */,
@@ -5445,7 +5377,7 @@
 /* Begin XCBuildConfiguration section */
 		41342D0724435D9900F0905B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4EDD917A4F90783F689FBED2 /* SelfHosted.xcconfig */;
+			baseConfigurationReference = 415A9976264CCD3F002BFD35 /* Debug.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -5479,7 +5411,7 @@
 		};
 		41342D0824435D9900F0905B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4EDD917A4F90783F689FBED2 /* SelfHosted.xcconfig */;
+			baseConfigurationReference = 415A9977264CCD3F002BFD35 /* Release.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -5511,7 +5443,7 @@
 		};
 		41342D0924435D9900F0905B /* Beta */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4EDD917A4F90783F689FBED2 /* SelfHosted.xcconfig */;
+			baseConfigurationReference = 415A9977264CCD3F002BFD35 /* Release.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -5543,7 +5475,7 @@
 		};
 		4140EA4F227288EF0009F794 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4EDD917A4F90783F689FBED2 /* SelfHosted.xcconfig */;
+			baseConfigurationReference = 415A9976264CCD3F002BFD35 /* Debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
@@ -5555,7 +5487,7 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = "BookPlayerWatch/$(BP_WATCH_ENTITLEMENTS).entitlements";
+				CODE_SIGN_ENTITLEMENTS = BookPlayerWatch/BookPlayerWatch.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
@@ -5584,7 +5516,7 @@
 		};
 		4140EA50227288EF0009F794 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4EDD917A4F90783F689FBED2 /* SelfHosted.xcconfig */;
+			baseConfigurationReference = 415A9977264CCD3F002BFD35 /* Release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
@@ -5596,7 +5528,7 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = "BookPlayerWatch/$(BP_WATCH_ENTITLEMENTS).entitlements";
+				CODE_SIGN_ENTITLEMENTS = BookPlayerWatch/BookPlayerWatch.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
@@ -5622,7 +5554,7 @@
 		};
 		4140EA51227288EF0009F794 /* Beta */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4EDD917A4F90783F689FBED2 /* SelfHosted.xcconfig */;
+			baseConfigurationReference = 415A9977264CCD3F002BFD35 /* Release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
@@ -5634,7 +5566,7 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = "BookPlayerWatch/$(BP_WATCH_ENTITLEMENTS).entitlements";
+				CODE_SIGN_ENTITLEMENTS = BookPlayerWatch/BookPlayerWatch.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
@@ -5660,7 +5592,7 @@
 		};
 		4140EA68227289720009F794 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4EDD917A4F90783F689FBED2 /* SelfHosted.xcconfig */;
+			baseConfigurationReference = 415A9976264CCD3F002BFD35 /* Debug.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -5705,7 +5637,7 @@
 		};
 		4140EA69227289720009F794 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4EDD917A4F90783F689FBED2 /* SelfHosted.xcconfig */;
+			baseConfigurationReference = 415A9977264CCD3F002BFD35 /* Release.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -5748,7 +5680,7 @@
 		};
 		4140EA6A227289720009F794 /* Beta */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4EDD917A4F90783F689FBED2 /* SelfHosted.xcconfig */;
+			baseConfigurationReference = 415A9977264CCD3F002BFD35 /* Release.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -5791,7 +5723,7 @@
 		};
 		416A29B12569658300605395 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4EDD917A4F90783F689FBED2 /* SelfHosted.xcconfig */;
+			baseConfigurationReference = 415A9976264CCD3F002BFD35 /* Debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
@@ -5829,7 +5761,7 @@
 		};
 		416A29B22569658300605395 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4EDD917A4F90783F689FBED2 /* SelfHosted.xcconfig */;
+			baseConfigurationReference = 415A9977264CCD3F002BFD35 /* Release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
@@ -5865,7 +5797,7 @@
 		};
 		416A29B32569658300605395 /* Beta */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4EDD917A4F90783F689FBED2 /* SelfHosted.xcconfig */;
+			baseConfigurationReference = 415A9977264CCD3F002BFD35 /* Release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
@@ -6021,7 +5953,7 @@
 		};
 		418B6D181D2707F800F974FB /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4EDD917A4F90783F689FBED2 /* SelfHosted.xcconfig */;
+			baseConfigurationReference = 415A9976264CCD3F002BFD35 /* Debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
@@ -6060,7 +5992,7 @@
 		};
 		418B6D191D2707F800F974FB /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4EDD917A4F90783F689FBED2 /* SelfHosted.xcconfig */;
+			baseConfigurationReference = 415A9977264CCD3F002BFD35 /* Release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
@@ -6100,7 +6032,7 @@
 		};
 		418B6D1B1D2707F800F974FB /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4EDD917A4F90783F689FBED2 /* SelfHosted.xcconfig */;
+			baseConfigurationReference = 415A9976264CCD3F002BFD35 /* Debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -6125,7 +6057,7 @@
 		};
 		418B6D1C1D2707F800F974FB /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4EDD917A4F90783F689FBED2 /* SelfHosted.xcconfig */;
+			baseConfigurationReference = 415A9977264CCD3F002BFD35 /* Release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -6152,7 +6084,7 @@
 		};
 		41A1B0E9226E9BC500EA0400 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4EDD917A4F90783F689FBED2 /* SelfHosted.xcconfig */;
+			baseConfigurationReference = 415A9976264CCD3F002BFD35 /* Debug.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -6198,7 +6130,7 @@
 		};
 		41A1B0EA226E9BC500EA0400 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4EDD917A4F90783F689FBED2 /* SelfHosted.xcconfig */;
+			baseConfigurationReference = 415A9977264CCD3F002BFD35 /* Release.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -6242,7 +6174,7 @@
 		};
 		41A1B0EB226E9BC500EA0400 /* Beta */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4EDD917A4F90783F689FBED2 /* SelfHosted.xcconfig */;
+			baseConfigurationReference = 415A9977264CCD3F002BFD35 /* Release.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -6286,7 +6218,7 @@
 		};
 		63005A402AE7FD8000A4CA2C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4EDD917A4F90783F689FBED2 /* SelfHosted.xcconfig */;
+			baseConfigurationReference = 415A9976264CCD3F002BFD35 /* Debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
@@ -6324,7 +6256,7 @@
 		};
 		63005A412AE7FD8000A4CA2C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4EDD917A4F90783F689FBED2 /* SelfHosted.xcconfig */;
+			baseConfigurationReference = 415A9977264CCD3F002BFD35 /* Release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
@@ -6360,7 +6292,7 @@
 		};
 		63005A422AE7FD8000A4CA2C /* Beta */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4EDD917A4F90783F689FBED2 /* SelfHosted.xcconfig */;
+			baseConfigurationReference = 415A9977264CCD3F002BFD35 /* Release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
@@ -6396,7 +6328,7 @@
 		};
 		9F4A33E8292B0C720034CD4C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4EDD917A4F90783F689FBED2 /* SelfHosted.xcconfig */;
+			baseConfigurationReference = 415A9976264CCD3F002BFD35 /* Debug.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -6436,7 +6368,7 @@
 		};
 		9F4A33E9292B0C720034CD4C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4EDD917A4F90783F689FBED2 /* SelfHosted.xcconfig */;
+			baseConfigurationReference = 415A9977264CCD3F002BFD35 /* Release.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -6474,7 +6406,7 @@
 		};
 		9F4A33EA292B0C720034CD4C /* Beta */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4EDD917A4F90783F689FBED2 /* SelfHosted.xcconfig */;
+			baseConfigurationReference = 415A9977264CCD3F002BFD35 /* Release.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -6569,7 +6501,7 @@
 		};
 		C30C6B8920C68EDD0085218A /* Beta */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4EDD917A4F90783F689FBED2 /* SelfHosted.xcconfig */;
+			baseConfigurationReference = 415A9977264CCD3F002BFD35 /* Release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
@@ -6609,7 +6541,7 @@
 		};
 		C30C6B8A20C68EDD0085218A /* Beta */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4EDD917A4F90783F689FBED2 /* SelfHosted.xcconfig */;
+			baseConfigurationReference = 415A9977264CCD3F002BFD35 /* Release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_IDENTITY = "Apple Development";

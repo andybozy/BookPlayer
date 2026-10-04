@@ -1,16 +1,5 @@
 # BookPlayer (iOS / watchOS)
 
-> **Personal fork, branch `selfhosted-abs`:** the checked-in project configuration now selects
-> `BuildConfiguration/SelfHosted.xcconfig`. iOS and Watch entry points route to
-> `Shared/SelfHosted/SelfHostedStore` / `SelfHostedRootView` before the legacy boot sequence below.
-> This mode uses Audiobookshelf directly, does not initialize RevenueCat/Sentry/BookPlayer Cloud,
-> and owns an account-scoped atomic JSON manifest rather than the legacy CoreData stack.
-> Every file in `Shared/SelfHosted` belongs to BOTH shared framework targets. The existing
-> schema/migration files are unchanged. Read `SELFHOSTED.md` for signing, deferred Apple validation,
-> feature boundaries and progress conflict semantics. Never overwrite a corrupt manifest with
-> empty state or put tokens in media URLs. The legacy architecture below still describes the
-> upstream mode; it is not the boot path of this fork's default configuration.
-
 Open-source audiobook player for iOS and watchOS. Swift, **hybrid UIKit-Coordinators + SwiftUI (MVVM)**.
 Companion to the Android app; both share the **BookPlayer backend** (auth, per-user cloud sync, subscriptions).
 Handles **offline audio playback, background/lock-screen playback, cloud sync, auth, and paid entitlements** —

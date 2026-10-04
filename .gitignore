@@ -81,6 +81,3 @@ fastlane/test_output
 
 # OSX
 .DS_Store
-BuildConfiguration/SelfHosted.local.xcconfig
-!BuildConfiguration/SelfHosted.xcconfig
-!BuildConfiguration/SelfHosted.local.template.xcconfig
