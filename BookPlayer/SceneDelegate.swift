@@ -9,6 +9,7 @@
 import AVFoundation
 import BookPlayerKit
 import UIKit
+import SwiftUI
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
   var window: UIWindow?
@@ -23,6 +24,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
   }
 
   func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+    if SelfHostedConfiguration.enabled {
+      guard let scene = scene as? UIWindowScene else { return }
+      let window = UIWindow(windowScene: scene)
+      window.rootViewController = UIHostingController(rootView: SelfHostedRootView())
+      window.makeKeyAndVisible()
+      self.window = window
+      return
+    }
     if let activityType = connectionOptions.userActivities.first?.activityType,
        activityType == Constants.UserActivityPlayback {
       playLastBook()
@@ -50,6 +59,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
   }
 
   func handleOpening(URLContexts: Set<UIOpenURLContext>) {
+    guard !SelfHostedConfiguration.enabled else { return }
     for context in URLContexts {
       ActionParserService.process(context.url)
     }
@@ -66,6 +76,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
   }
 
   func sceneDidBecomeActive(_ scene: UIScene) {
+    if SelfHostedConfiguration.enabled {
+      Task { await SelfHostedStore.shared.refresh() }
+      return
+    }
     guard
       let mainCoordinator
     else {
@@ -80,12 +94,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
   }
 
   func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
+    if SelfHostedConfiguration.enabled { SelfHostedStore.shared.player.resume(); return }
     ActionParserService.process(userActivity)
   }
 }
 
 extension SceneDelegate {
   func playLastBook() {
+    if SelfHostedConfiguration.enabled { SelfHostedStore.shared.player.resume(); return }
     AppServices.shared.playLastBook()
   }
 }

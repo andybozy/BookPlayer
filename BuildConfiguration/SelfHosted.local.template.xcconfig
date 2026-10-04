@@ -1,0 +1,5 @@
+// Copy to SelfHosted.local.xcconfig on your Mac before signing.
+DEVELOPMENT_TEAM = YOUR_APPLE_TEAM_ID
+// BP_BUNDLE_IDENTIFIER = your.unique.bookplayer
+// CarPlay's app UI additionally requires Apple's audio entitlement approval.
+// Add com.apple.developer.carplay-audio only after entitlement approval.

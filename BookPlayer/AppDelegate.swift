@@ -55,6 +55,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BPLogger {
   ) -> Bool {
     Self.shared = self
 
+    if SelfHostedConfiguration.enabled {
+      SelfHostedStore.shared.start()
+      return true
+    }
+
     // Register fallback defaults before anything reads UserDefaults, so a fresh
     // install follows the system appearance instead of defaulting to light mode.
     UserDefaults.standard.register(defaults: [
@@ -89,6 +94,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BPLogger {
     handle intent: INIntent,
     completionHandler: @escaping (INIntentResponse) -> Void
   ) {
+    if SelfHostedConfiguration.enabled {
+      SelfHostedStore.shared.player.resume()
+      completionHandler(INPlayMediaIntentResponse(code: .success, userActivity: nil))
+      return
+    }
     let response: INPlayMediaIntentResponse
     do {
       try ActionParserService.process(intent)
@@ -112,7 +122,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BPLogger {
     }
   }
 
+  func application(_ application: UIApplication, handleEventsForBackgroundURLSession identifier: String,
+                   completionHandler: @escaping () -> Void) {
+    if SelfHostedConfiguration.enabled {
+      SelfHostedStore.shared.handleBackgroundSession(identifier, completion: completionHandler)
+    } else {
+      completionHandler()
+    }
+  }
+
   override func accessibilityPerformMagicTap() -> Bool {
+    if SelfHostedConfiguration.enabled {
+      SelfHostedStore.shared.player.toggle()
+      return true
+    }
     guard
       let playerManager = AppServices.shared.coreServices?.playerManager,
       playerManager.currentItem != nil

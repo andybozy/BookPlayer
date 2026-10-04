@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import BookPlayerWatchKit
 
 @main
 struct BookPlayerApp: App {
@@ -15,8 +16,12 @@ struct BookPlayerApp: App {
 
   @SceneBuilder var body: some Scene {
     WindowGroup {
-      NavigationView {
-        LoadingView()
+      if SelfHostedConfiguration.enabled {
+        SelfHostedRootView()
+      } else {
+        NavigationView {
+          LoadingView()
+        }
       }
     }
   }

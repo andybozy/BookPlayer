@@ -23,6 +23,10 @@ class ExtensionDelegate: NSObject, WKApplicationDelegate, ObservableObject {
   var errorCoreServicesSetup: Error?
 
   func applicationDidFinishLaunching() {
+    if SelfHostedConfiguration.enabled {
+      Task { @MainActor in SelfHostedStore.shared.start() }
+      return
+    }
     setupRevenueCat()
     setupCoreServices()
     setupMPRemoteCommands()
@@ -146,6 +150,14 @@ class ExtensionDelegate: NSObject, WKApplicationDelegate, ObservableObject {
         // Be sure to complete the connectivity task once you’re done.
         connectivityTask.setTaskCompletedWithSnapshot(false)
       case let urlSessionTask as WKURLSessionRefreshBackgroundTask:
+        if SelfHostedConfiguration.enabled {
+          Task { @MainActor in
+            SelfHostedStore.shared.handleBackgroundSession(urlSessionTask.sessionIdentifier) {
+              urlSessionTask.setTaskCompletedWithSnapshot(false)
+            }
+          }
+          continue
+        }
         // Be sure to complete the URL session task once you’re done.
         urlSessionTask.setTaskCompletedWithSnapshot(false)
       case let relevantShortcutTask as WKRelevantShortcutRefreshBackgroundTask:

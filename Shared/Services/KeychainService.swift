@@ -26,6 +26,8 @@ public protocol KeychainServiceProtocol: Sendable {
 public typealias KeychainUpdateValue = (key: KeychainKeys, deleted: Bool)
 
 public enum KeychainKeys: String {
+  /// Credentials for the independent Audiobookshelf mode; never sent to BookPlayer Cloud.
+  case selfHostedABS = "self_hosted_abs_connection"
   /// Stores BookPlayer's API access token
   case token = "access_token"
   /// Stores the Jellyfin connection information (JellyfinConnectionData)

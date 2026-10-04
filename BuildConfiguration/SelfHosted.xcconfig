@@ -1,0 +1,13 @@
+// Public configuration for the personal Audiobookshelf fork. No credentials.
+#include "Debug.template.xcconfig"
+
+BP_SELF_HOSTED = YES
+BP_ABS_SERVER = https:/$()/audiobooks.androshera.xyz
+BP_BUNDLE_IDENTIFIER = xyz.androshera.bookplayer
+BP_ENTITLEMENTS = SelfHosted
+BP_WATCH_ENTITLEMENTS = SelfHosted
+CODE_SIGN_STYLE = Automatic
+
+// Set DEVELOPMENT_TEAM and any desired bundle/server overrides in the optional
+// local include BELOW. Never put the ABS password/token in build settings.
+#include? "SelfHosted.local.xcconfig"
