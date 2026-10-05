@@ -17,7 +17,7 @@ struct LoginView: View {
 
   var body: some View {
     List {
-      Text("BookPlayer Pro")
+      Text(AppEnvironment.isSelfHosted ? "self_hosted_title".localized : "BookPlayer Pro")
         .font(Font(Fonts.titleLarge))
         .frame(maxWidth: .infinity)
         .multilineTextAlignment(.center)

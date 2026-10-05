@@ -1,0 +1,4 @@
+// Used by Release and Beta (including TestFlight archives).
+#include "Debug.template.xcconfig"
+#include? "Release.xcconfig"
+#include "PersonalCloud.xcconfig"

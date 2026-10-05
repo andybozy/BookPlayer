@@ -18,5 +18,5 @@ echo "BP_MOCKED_BEARER_TOKEN = $BP_MOCKED_BEARER_TOKEN" >> ../BuildConfiguration
 echo "BP_API_SCHEME = $BP_API_SCHEME" >> ../BuildConfiguration/Release.xcconfig
 echo "BP_API_DOMAIN = $BP_API_DOMAIN" >> ../BuildConfiguration/Release.xcconfig
 echo "BP_API_PORT = $BP_API_PORT" >> ../BuildConfiguration/Release.xcconfig
-echo "BP_SELF_HOSTED = ${BP_SELF_HOSTED:-NO}" >> ../BuildConfiguration/Release.xcconfig
-echo "BP_WATCH_ENTITLEMENTS = ${BP_WATCH_ENTITLEMENTS:-BookPlayerWatch}" >> ../BuildConfiguration/Release.xcconfig
+echo "BP_SELF_HOSTED = YES" >> ../BuildConfiguration/Release.xcconfig
+echo "BP_WATCH_ENTITLEMENTS = BookPlayerWatch-SelfHosted" >> ../BuildConfiguration/Release.xcconfig

@@ -2,8 +2,9 @@
 
 set -e
 
-# Personal builds do not send debug symbols to the upstream project.
-if [ "${BP_SELF_HOSTED:-NO}" = "YES" ] || [ -z "${SENTRY_AUTH_TOKEN:-}" ] || [ -z "${SENTRY_ORG:-}" ] || [ -z "${SENTRY_PROJECT:-}" ]; then
+# This branch always loads PersonalCloud.xcconfig, even when Xcode Cloud's environment
+# lacks BP_SELF_HOSTED or still contains upstream credentials from an older workflow.
+if [ -f "$(dirname "$0")/../BuildConfiguration/PersonalCloud.xcconfig" ] || [ "${BP_SELF_HOSTED:-NO}" = "YES" ] || [ -z "${SENTRY_AUTH_TOKEN:-}" ] || [ -z "${SENTRY_ORG:-}" ] || [ -z "${SENTRY_PROJECT:-}" ]; then
     exit 0
 fi
 

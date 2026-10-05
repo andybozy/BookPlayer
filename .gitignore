@@ -5,6 +5,7 @@
 # Build configuration
 BuildConfiguration/Debug.xcconfig
 BuildConfiguration/Release.xcconfig
+ci_scripts/tests/__pycache__/
 
 ## Build generated
 build/

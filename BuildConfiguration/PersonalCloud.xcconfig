@@ -1,0 +1,12 @@
+// Required cloud settings for the selfhosted-cloud branch.
+// Imported AFTER private signing settings by PersonalDebug/PersonalRelease.
+// Keep bundle IDs, DEVELOPMENT_TEAM and provisioning profiles in the private files.
+BP_SELF_HOSTED = YES
+BP_API_SCHEME = https
+BP_API_DOMAIN = bookplayer.androshera.xyz
+BP_API_PORT =
+BP_ENTITLEMENTS = BookPlayer-SelfHosted
+BP_WATCH_ENTITLEMENTS = BookPlayerWatch-SelfHosted
+BP_MOCKED_BEARER_TOKEN =
+BP_REVENUECAT_KEY =
+BP_SENTRY_DSN =

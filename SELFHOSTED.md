@@ -25,20 +25,55 @@ La capacità personale non è un acquisto né un abbonamento ufficiale BookPlaye
 Non sono stati eseguiti build, firma, installazione, test Apple o submit su questo server Linux.
 I file privati `Debug.xcconfig` / `Release.xcconfig` esistenti non sono stati sovrascritti.
 
-Usare `BuildConfiguration/SelfHosted.template.xcconfig` come override di `xcodebuild -xcconfig`
-o includerlo per ultimo nella propria configurazione privata. Impostare il proprio `DEVELOPMENT_TEAM`,
-registrare bundle ID e target associati e abilitare i gruppi/provisioning necessari nel proprio account Apple.
+Il progetto sul ramo `selfhosted-cloud` carica automaticamente `PersonalDebug.xcconfig` per Debug e
+`PersonalRelease.xcconfig` per Release/Beta, su tutti i target. Questi file leggono prima i valori privati
+di firma e poi `PersonalCloud.xcconfig`: login locale, endpoint HTTPS, entitlements personali e nessuna
+chiave RevenueCat/Sentry o token simulato. Non serve più includere manualmente un override per attivare
+il cloud personale. Il controllo **Validate personal cloud** nei target iOS/Watch interrompe una build
+con impostazioni contrastanti, prima che venga distribuito nuovamente il login Apple.
+
+Impostare il proprio `DEVELOPMENT_TEAM` e `BP_BUNDLE_IDENTIFIER` nei file privati, registrare bundle ID e
+target associati e abilitare i gruppi/provisioning necessari nel proprio account Apple. Team, bundle ID e
+profili esistenti restano sotto il controllo dei file privati e delle impostazioni Xcode.
 Il bundle ID suggerito è `xyz.androshera.BookPlayer`; i target Watch, widget, intent e Share Extension
 derivano da `BP_BUNDLE_IDENTIFIER` e devono condividere l'App Group `group.<bundle-id>.files`.
+Solo per un nuovo setup, `SelfHosted.template.xcconfig` resta disponibile come override facoltativo di
+`xcodebuild -xcconfig`, con bundle ID suggerito e firma automatica; non usarlo per sostituire una firma già configurata.
 
 La configurazione personale sceglie entitlements senza CarPlay o Sign in with Apple. Conserva iCloud
 Documents e Siri dell'app: richiedono configurazione nel proprio Apple Developer Team. CarPlay richiede
 l'autorizzazione Apple prima di aggiungere l'entitlement. Login Apple/passkey non sono attivi in questa
 variante: il login locale funziona senza email, AWS o un AASA provvisorio.
 
-Per Xcode Cloud impostare anche `BP_SELF_HOSTED=YES`, i due `BP_*ENTITLEMENTS`, endpoint e bundle ID.
-L'upload dSYM richiede ora un'organizzazione/progetto Sentry esplicitamente configurati ed è disattivato
-per la build personale; nessun invio al progetto degli autori. La firma e i servizi Apple restano esterni.
+Per Xcode Cloud selezionare il ramo `selfhosted-cloud` e mantenere le proprie variabili di firma/bundle ID:
+le impostazioni personali vengono incluse anche nelle build Archive/TestFlight. L'upload dSYM è disattivato
+su questo ramo anche se il workflow conserva vecchie variabili Sentry. La firma e i servizi Apple restano esterni.
+
+### Se compare ancora “Sign in with Apple”
+
+Il backend personale accetta username/password: **Sign in with Apple non è attivo** e non va usato
+per accedere a questo server. Nella prima revisione del ramo (`fb70107`) il profilo mostrava il login Apple
+quando mancava l'inclusione manuale di `SelfHosted.template.xcconfig`. Il solo cambio del dominio API
+non attivava la modalità personale. Le configurazioni collegate al progetto correggono questo caso.
+
+Sul Mac aggiornare il ramo e ricompilare usando lo stesso bundle ID dell'app già installata:
+
+```bash
+git switch selfhosted-cloud
+git pull --ff-only origin selfhosted-cloud
+xcodebuild -project BookPlayer.xcodeproj -scheme BookPlayer -configuration Release -showBuildSettings \
+  | grep -E 'BP_SELF_HOSTED =|BP_API_SCHEME =|BP_API_DOMAIN =|BP_ENTITLEMENTS =|BP_WATCH_ENTITLEMENTS ='
+```
+
+Le impostazioni risolte devono mostrare `YES`, `https`, `bookplayer.androshera.xyz` e gli entitlements
+`BookPlayer-SelfHosted` / `BookPlayerWatch-SelfHosted`. Rimuovere eventuali override contrastanti dalle
+Build Settings dei target o dalla riga di comando. In Xcode eseguire **Product → Clean Build Folder**,
+poi Build/Archive e installare la nuova build; con TestFlight occorre pubblicare una nuova build del ramo corretto.
+Il pull da solo non cambia l'app installata. Nel profilo deve apparire **Server personale** con username
+e password, e il dominio personale. Accedere con `andybozy` e la password già impostata.
+
+L'ordine degli include e le precedenze sono quelli delle
+[configurazioni Xcode documentate da Apple](https://help.apple.com/xcode/mac/current/en.lproj/dev745c5c974.html).
 
 ## Utilizzo e librerie
 
@@ -74,6 +109,9 @@ Sul server: build backend, 462 test, upload/download pubblico di oltre 128 MiB, 
 isolamento account, progressi con rewind, bookmark, preferenze, revoca e quota/riserva.
 Sul sorgente Apple: parsing Swift, plist e collegamento del nuovo file a entrambi i framework verificati;
 XCTest aggiunti per endpoint personali e limiti multipart, da eseguire su Mac.
+La correzione delle configurazioni è verificata anche con
+`python3 -m unittest discover -s ci_scripts/tests -v` (guard di build), e con il controllo dei riferimenti
+alle configurazioni per i nove target. Non sostituisce `xcodebuild` o una prova della schermata su dispositivo.
 
 Prima dell'uso quotidiano eseguire i test Xcode e queste prove su dispositivi: login/logout anche
 durante un upload; due dispositivi con rinomina e progressi; interruzione rete e riapertura app durante

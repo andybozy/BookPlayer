@@ -488,6 +488,11 @@ parts, persist upload ID/size/date per account, consult server parts for resume,
 upload task identity. Personal first-sync uses UUID `/status`; uploads avoid PUTting known UUIDs at stale paths.
 No CoreData or SwiftData schema changes. Server configuration and manual Apple validation are in `SELFHOSTED.md`.
 
-The `SelfHosted.template.xcconfig` is an explicit override; it never overwrites private Debug/Release settings.
+All nine targets on this branch use `PersonalDebug.xcconfig` / `PersonalRelease.xcconfig` for Debug/Release/Beta.
+These include defaults, then private Debug/Release settings, then `PersonalCloud.xcconfig`. The personal login,
+endpoint and entitlements are automatic; existing bundle IDs, team and provisioning settings remain private.
+The optional `SelfHosted.template.xcconfig` supplies signing defaults only for a new setup. Both app targets run
+`ci_scripts/validate_personal_build.sh` against Xcode's resolved settings so target/CLI overrides cannot silently
+ship Apple login or upstream credentials. Xcode Cloud dSYM upload is disabled on this branch independent of env flags.
 Personal entitlements omit Apple login and CarPlay; signing/team/App Groups/iCloud remain a later Apple build step.
 The Watch profile's phone-control toggle selects the existing phone controls or existing autonomous library.

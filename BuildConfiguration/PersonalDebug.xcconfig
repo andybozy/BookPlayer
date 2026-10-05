@@ -1,0 +1,4 @@
+// Preserve private signing settings; always select the personal login/backend.
+#include "Debug.template.xcconfig"
+#include? "Debug.xcconfig"
+#include "PersonalCloud.xcconfig"

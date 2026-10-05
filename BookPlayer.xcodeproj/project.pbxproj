@@ -1161,6 +1161,9 @@
 		415A9975264CCD3F002BFD35 /* Debug.template.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Debug.template.xcconfig; path = BuildConfiguration/Debug.template.xcconfig; sourceTree = SOURCE_ROOT; };
 		415A9976264CCD3F002BFD35 /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = BuildConfiguration/Debug.xcconfig; sourceTree = SOURCE_ROOT; };
 		415A9977264CCD3F002BFD35 /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = BuildConfiguration/Release.xcconfig; sourceTree = SOURCE_ROOT; };
+		A5100500AABBCCDD00000001 /* PersonalDebug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = PersonalDebug.xcconfig; path = BuildConfiguration/PersonalDebug.xcconfig; sourceTree = SOURCE_ROOT; };
+		A5100500AABBCCDD00000002 /* PersonalRelease.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = PersonalRelease.xcconfig; path = BuildConfiguration/PersonalRelease.xcconfig; sourceTree = SOURCE_ROOT; };
+		A5100500AABBCCDD00000003 /* PersonalCloud.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = PersonalCloud.xcconfig; path = BuildConfiguration/PersonalCloud.xcconfig; sourceTree = SOURCE_ROOT; };
 		415F0E6E244AAC5A00DD1D8B /* PlayMediaIntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayMediaIntentHandler.swift; sourceTree = "<group>"; };
 		4160A08E23F2DBD40039166B /* String+BookPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+BookPlayer.swift"; sourceTree = "<group>"; };
 		4160A09323F2DE130039166B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
@@ -2233,6 +2236,9 @@
 				415A9975264CCD3F002BFD35 /* Debug.template.xcconfig */,
 				415A9976264CCD3F002BFD35 /* Debug.xcconfig */,
 				415A9977264CCD3F002BFD35 /* Release.xcconfig */,
+				A5100500AABBCCDD00000001 /* PersonalDebug.xcconfig */,
+				A5100500AABBCCDD00000002 /* PersonalRelease.xcconfig */,
+				A5100500AABBCCDD00000003 /* PersonalCloud.xcconfig */,
 			);
 			path = BuildConfiguration;
 			sourceTree = "<group>";
@@ -3874,6 +3880,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4140EA57227288EF0009F794 /* Build configuration list for PBXNativeTarget "BookPlayerWatch" */;
 			buildPhases = (
+				A5100500AABBCCDD00000005 /* Validate personal cloud */,
 				4140EA2D227288ED0009F794 /* Resources */,
 				4140EA37227288EF0009F794 /* Sources */,
 				4140EA38227288EF0009F794 /* Frameworks */,
@@ -3935,6 +3942,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 418B6D171D2707F800F974FB /* Build configuration list for PBXNativeTarget "BookPlayer" */;
 			buildPhases = (
+				A5100500AABBCCDD00000004 /* Validate personal cloud */,
 				C35BADEA20698A6D007687C1 /* Run SwiftLint */,
 				418B6CF41D2707F800F974FB /* Sources */,
 				418B6CF51D2707F800F974FB /* Frameworks */,
@@ -4333,6 +4341,34 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		A5100500AABBCCDD00000004 /* Validate personal cloud */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = ();
+			inputPaths = (
+				"$(SRCROOT)/ci_scripts/validate_personal_build.sh",
+			);
+			name = "Validate personal cloud";
+			outputPaths = ();
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/bin/sh \"$SRCROOT/ci_scripts/validate_personal_build.sh\"\n";
+		};
+		A5100500AABBCCDD00000005 /* Validate personal cloud */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = ();
+			inputPaths = (
+				"$(SRCROOT)/ci_scripts/validate_personal_build.sh",
+			);
+			name = "Validate personal cloud";
+			outputPaths = ();
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/bin/sh \"$SRCROOT/ci_scripts/validate_personal_build.sh\"\n";
+		};
 		C35BADEA20698A6D007687C1 /* Run SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
@@ -5383,7 +5419,7 @@
 /* Begin XCBuildConfiguration section */
 		41342D0724435D9900F0905B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 415A9976264CCD3F002BFD35 /* Debug.xcconfig */;
+			baseConfigurationReference = A5100500AABBCCDD00000001 /* PersonalDebug.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -5417,7 +5453,7 @@
 		};
 		41342D0824435D9900F0905B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 415A9977264CCD3F002BFD35 /* Release.xcconfig */;
+			baseConfigurationReference = A5100500AABBCCDD00000002 /* PersonalRelease.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -5449,7 +5485,7 @@
 		};
 		41342D0924435D9900F0905B /* Beta */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 415A9977264CCD3F002BFD35 /* Release.xcconfig */;
+			baseConfigurationReference = A5100500AABBCCDD00000002 /* PersonalRelease.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -5481,7 +5517,7 @@
 		};
 		4140EA4F227288EF0009F794 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 415A9976264CCD3F002BFD35 /* Debug.xcconfig */;
+			baseConfigurationReference = A5100500AABBCCDD00000001 /* PersonalDebug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
@@ -5522,7 +5558,7 @@
 		};
 		4140EA50227288EF0009F794 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 415A9977264CCD3F002BFD35 /* Release.xcconfig */;
+			baseConfigurationReference = A5100500AABBCCDD00000002 /* PersonalRelease.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
@@ -5560,7 +5596,7 @@
 		};
 		4140EA51227288EF0009F794 /* Beta */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 415A9977264CCD3F002BFD35 /* Release.xcconfig */;
+			baseConfigurationReference = A5100500AABBCCDD00000002 /* PersonalRelease.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
@@ -5598,7 +5634,7 @@
 		};
 		4140EA68227289720009F794 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 415A9976264CCD3F002BFD35 /* Debug.xcconfig */;
+			baseConfigurationReference = A5100500AABBCCDD00000001 /* PersonalDebug.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -5643,7 +5679,7 @@
 		};
 		4140EA69227289720009F794 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 415A9977264CCD3F002BFD35 /* Release.xcconfig */;
+			baseConfigurationReference = A5100500AABBCCDD00000002 /* PersonalRelease.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -5686,7 +5722,7 @@
 		};
 		4140EA6A227289720009F794 /* Beta */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 415A9977264CCD3F002BFD35 /* Release.xcconfig */;
+			baseConfigurationReference = A5100500AABBCCDD00000002 /* PersonalRelease.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -5729,7 +5765,7 @@
 		};
 		416A29B12569658300605395 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 415A9976264CCD3F002BFD35 /* Debug.xcconfig */;
+			baseConfigurationReference = A5100500AABBCCDD00000001 /* PersonalDebug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
@@ -5767,7 +5803,7 @@
 		};
 		416A29B22569658300605395 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 415A9977264CCD3F002BFD35 /* Release.xcconfig */;
+			baseConfigurationReference = A5100500AABBCCDD00000002 /* PersonalRelease.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
@@ -5803,7 +5839,7 @@
 		};
 		416A29B32569658300605395 /* Beta */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 415A9977264CCD3F002BFD35 /* Release.xcconfig */;
+			baseConfigurationReference = A5100500AABBCCDD00000002 /* PersonalRelease.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
@@ -5961,7 +5997,7 @@
 		};
 		418B6D181D2707F800F974FB /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 415A9976264CCD3F002BFD35 /* Debug.xcconfig */;
+			baseConfigurationReference = A5100500AABBCCDD00000001 /* PersonalDebug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
@@ -6000,7 +6036,7 @@
 		};
 		418B6D191D2707F800F974FB /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 415A9977264CCD3F002BFD35 /* Release.xcconfig */;
+			baseConfigurationReference = A5100500AABBCCDD00000002 /* PersonalRelease.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
@@ -6040,7 +6076,7 @@
 		};
 		418B6D1B1D2707F800F974FB /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 415A9976264CCD3F002BFD35 /* Debug.xcconfig */;
+			baseConfigurationReference = A5100500AABBCCDD00000001 /* PersonalDebug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -6065,7 +6101,7 @@
 		};
 		418B6D1C1D2707F800F974FB /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 415A9977264CCD3F002BFD35 /* Release.xcconfig */;
+			baseConfigurationReference = A5100500AABBCCDD00000002 /* PersonalRelease.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -6092,7 +6128,7 @@
 		};
 		41A1B0E9226E9BC500EA0400 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 415A9976264CCD3F002BFD35 /* Debug.xcconfig */;
+			baseConfigurationReference = A5100500AABBCCDD00000001 /* PersonalDebug.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -6138,7 +6174,7 @@
 		};
 		41A1B0EA226E9BC500EA0400 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 415A9977264CCD3F002BFD35 /* Release.xcconfig */;
+			baseConfigurationReference = A5100500AABBCCDD00000002 /* PersonalRelease.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -6182,7 +6218,7 @@
 		};
 		41A1B0EB226E9BC500EA0400 /* Beta */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 415A9977264CCD3F002BFD35 /* Release.xcconfig */;
+			baseConfigurationReference = A5100500AABBCCDD00000002 /* PersonalRelease.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -6226,7 +6262,7 @@
 		};
 		63005A402AE7FD8000A4CA2C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 415A9976264CCD3F002BFD35 /* Debug.xcconfig */;
+			baseConfigurationReference = A5100500AABBCCDD00000001 /* PersonalDebug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
@@ -6264,7 +6300,7 @@
 		};
 		63005A412AE7FD8000A4CA2C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 415A9977264CCD3F002BFD35 /* Release.xcconfig */;
+			baseConfigurationReference = A5100500AABBCCDD00000002 /* PersonalRelease.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
@@ -6300,7 +6336,7 @@
 		};
 		63005A422AE7FD8000A4CA2C /* Beta */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 415A9977264CCD3F002BFD35 /* Release.xcconfig */;
+			baseConfigurationReference = A5100500AABBCCDD00000002 /* PersonalRelease.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
@@ -6336,7 +6372,7 @@
 		};
 		9F4A33E8292B0C720034CD4C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 415A9976264CCD3F002BFD35 /* Debug.xcconfig */;
+			baseConfigurationReference = A5100500AABBCCDD00000001 /* PersonalDebug.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -6376,7 +6412,7 @@
 		};
 		9F4A33E9292B0C720034CD4C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 415A9977264CCD3F002BFD35 /* Release.xcconfig */;
+			baseConfigurationReference = A5100500AABBCCDD00000002 /* PersonalRelease.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -6414,7 +6450,7 @@
 		};
 		9F4A33EA292B0C720034CD4C /* Beta */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 415A9977264CCD3F002BFD35 /* Release.xcconfig */;
+			baseConfigurationReference = A5100500AABBCCDD00000002 /* PersonalRelease.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -6510,7 +6546,7 @@
 		};
 		C30C6B8920C68EDD0085218A /* Beta */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 415A9977264CCD3F002BFD35 /* Release.xcconfig */;
+			baseConfigurationReference = A5100500AABBCCDD00000002 /* PersonalRelease.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
@@ -6550,7 +6586,7 @@
 		};
 		C30C6B8A20C68EDD0085218A /* Beta */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 415A9977264CCD3F002BFD35 /* Release.xcconfig */;
+			baseConfigurationReference = A5100500AABBCCDD00000002 /* PersonalRelease.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_IDENTITY = "Apple Development";
